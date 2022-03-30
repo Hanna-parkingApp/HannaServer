@@ -1,16 +1,16 @@
 const User = require('../../db/schemas/User');
-const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken');
 
 async function registerController(req, res) {
     try {
         const { email, password, fullName, } = req.body;
         if (!(email && password && fullName)) {
-            res.status(400).json({ error:"All Fields must be provided"})
+            return res.status(400).json({ message:"All Fields must be provided"})
         }
     
         const existingUser = await User.findOne({ email }).exec();
         if (existingUser) {
-            res.status(400).json({ error:"Email already in use"});
+            return res.status(400).json({ message:"Email already in use"});
         }
     
         const newUser = await User.create({ 
@@ -27,7 +27,7 @@ async function registerController(req, res) {
         );
     
         newUser.token = token;
-        res.status(200).json({
+        return res.status(200).json({
             "message": "User created successfully.",
             User: newUser
         });
