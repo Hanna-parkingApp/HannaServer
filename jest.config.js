@@ -10,7 +10,7 @@ module.exports = {
   // Stop running tests after `n` failures
   // bail: 0,
 
-  // The directory where Jest should store its cached dependency information
+  // The directory where Jest should app its cached dependency information
   // cacheDirectory: "C:\\Users\\aviv0\\AppData\\Local\\Temp\\jest",
 
   // Automatically clear mock calls, instances and results before every test
@@ -110,8 +110,8 @@ module.exports = {
   // A path to a custom resolver
   // resolver: undefined,
 
-  // Automatically restore mock state and implementation before every test
-  // restoreMocks: false,
+  // Automatically reapp mock state and implementation before every test
+  // reappMocks: false,
 
   // The root directory that Jest should scan for tests and modules within
   // rootDir: undefined,
