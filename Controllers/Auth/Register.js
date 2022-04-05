@@ -1,5 +1,5 @@
+const createToken = require('../../util/CreateToken');
 const User = require('../../db/schemas/User');
-const jwt = require('jsonwebtoken');
 
 async function registerController(req, res) {
     try {
@@ -20,16 +20,13 @@ async function registerController(req, res) {
             points: 0
         });
     
-        const token = jwt.sign(
-            { user_id: newUser._id, email },
-            process.env.TOKEN_KEY,
-            { expiresIn: "2h" }
-        );
+        const tokens = {}
+        tokens.accessToken = createToken(newUser, 'access');
+        tokens.refreshToken = createToken(newUser, 'refresh');
     
-        newUser.token = token;
         return res.status(200).json({
             "message": "User created successfully.",
-            User: newUser
+            tokens
         });
     
     }
