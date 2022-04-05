@@ -1,5 +1,5 @@
+const createToken = require('../../util/CreateToken');
 const User = require('../../db/schemas/User');
-const jwt = require('jsonwebtoken');
 
 async function loginController(req, res) {
     try {
@@ -13,16 +13,15 @@ async function loginController(req, res) {
         const user = await User.findOne({ email });
         if (user) {
             if (password == user.password) {
-                const token = jwt.sign(
-                    { user_id: user._id, email },
-                    process.env.TOKEN_KEY,
-                    { expiresIn: "2h" }
-                );
+                const token = createToken(user, 'access');
 
-                user.token = token;
+                const tokens = {}
+                tokens.accessToken = createToken(user, 'access');
+                tokens.refreshToken = createToken(user, 'refresh');
+
                 res.status(200).json({
                     message: "login successful",
-                    user: user
+                    tokens
                 });
             }
             else {

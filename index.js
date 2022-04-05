@@ -14,6 +14,6 @@ const port = process.env.SERVER_PORT || 3000;
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
 app.listen(port, async () => {
-    // await db.connect();
+    await db.connect();
     console.log(`server open at http://localhost:${port}`);
 })
