@@ -1,5 +1,6 @@
 const createToken = require('../../util/CreateToken');
 const User = require('../../db/schemas/User');
+const RefreshToken = require('../../db/schemas/RefreshToken')
 
 async function registerController(req, res) {
     try {

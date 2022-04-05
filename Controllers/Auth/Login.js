@@ -18,7 +18,7 @@ async function loginController(req, res) {
                 const tokens = {}
                 tokens.accessToken = createToken(user, 'access');
                 tokens.refreshToken = createToken(user, 'refresh');
-
+        
                 res.status(200).json({
                     message: "login successful",
                     tokens
