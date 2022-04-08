@@ -185,56 +185,7 @@
         ]
       }
     },
-    "/Parking/findByTags": {
-      "get": {
-        "tags": [
-          "Parking"
-        ],
-        "summary": "Finds Parkings by tags",
-        "description": "Muliple tags can be provided with comma separated strings. Use         tag1, tag2, tag3 for testing.",
-        "operationId": "findParkingsByTags",
-        "produces": [
-          "application/xml",
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "tags",
-            "in": "query",
-            "description": "Tags to filter by",
-            "required": true,
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "collectionFormat": "multi"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/Parking"
-              }
-            }
-          },
-          "400": {
-            "description": "Invalid tag value"
-          }
-        },
-        "security": [
-          {
-            "Parkingapp_auth": [
-              "write:Parkings",
-              "read:Parkings"
-            ]
-          }
-        ],
-        "deprecated": true
-      }
-    },
+
     "/Parking/{ParkingId}": {
       "get": {
         "tags": [
@@ -568,7 +519,7 @@
         }
       }
     },
-    "/user": {
+    "/register": {
       "post": {
         "tags": [
           "user"
@@ -664,7 +615,7 @@
         }
       }
     },
-    "/user/login": {
+    "/login": {
       "get": {
         "tags": [
           "user"
@@ -678,9 +629,9 @@
         ],
         "parameters": [
           {
-            "name": "username",
+            "name": "email",
             "in": "query",
-            "description": "The user name for login",
+            "description": "The email for login",
             "required": true,
             "type": "string"
           },
@@ -921,20 +872,21 @@
         "username": {
           "type": "string"
         },
-        "firstName": {
-          "type": "string"
-        },
-        "lastName": {
-          "type": "string"
-        },
         "email": {
           "type": "string"
         },
         "password": {
           "type": "string"
         },
-        "phone": {
+        "carMake": {
           "type": "string"
+        },
+        "carModel": {
+          "type": "string"
+        },
+        "carNumber": {
+          "type": "integer",
+          "format": "int64"
         },
         "userStatus": {
           "type": "integer",
