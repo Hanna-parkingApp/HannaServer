@@ -4,4 +4,8 @@ function addDays(date, days) {
     return result;
 }
 
+function extractIdFromObjectId(objId){
+    
+}
+
 module.exports = { addDays }

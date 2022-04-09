@@ -1,5 +1,6 @@
-const createToken = require('../../util/CreateToken');
 const User = require('../../db/schemas/User');
+const RefreshToken = require('../../db/schemas/RefreshToken');
+const refreshToken = require('../../Services/token.service')
 
 async function loginController(req, res) {
     try {
@@ -13,11 +14,12 @@ async function loginController(req, res) {
         const user = await User.findOne({ email });
         if (user) {
             if (password == user.password) {
-                const token = createToken(user, 'access');
-
-                const tokens = {}
-                tokens.accessToken = createToken(user, 'access');
-                tokens.refreshToken = createToken(user, 'refresh');
+                userId = user.id;
+                const userRefreshToken = await RefreshToken.findOne({ user: userId, revoked: undefined }).exec();
+                const tokens = await refreshToken.refreshToken(userRefreshToken.token, user)
+                if (!tokens) {
+                    return res.status(401).json({message: "Invalid Token bla"});
+                } 
         
                 res.status(200).json({
                     message: "login successful",

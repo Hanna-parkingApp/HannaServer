@@ -1,6 +1,5 @@
-const createToken = require('../../util/CreateToken');
 const User = require('../../db/schemas/User');
-const RefreshToken = require('../../db/schemas/RefreshToken')
+const refreshToken = require('../../Services/token.service')
 
 async function registerController(req, res) {
     try {
@@ -21,9 +20,13 @@ async function registerController(req, res) {
             points: 0
         });
     
+        const rToken = await refreshToken.createRefreshToken(newUser._id);
         const tokens = {}
-        tokens.accessToken = createToken(newUser, 'access');
-        tokens.refreshToken = createToken(newUser, 'refresh');
+        tokens.accessToken = refreshToken.generateJWT(newUser.email);
+        tokens.refreshToken = rToken.token;
+
+        newUser.token = tokens.refreshToken;
+        newUser.save();
     
         return res.status(200).json({
             "message": "User created successfully.",
