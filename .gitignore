@@ -14,5 +14,5 @@ web-build/
 .DS_app
 
 # Tests
-Tests/
+# Tests/
 .env
