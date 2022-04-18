@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for Services/car.service.js</title>
+    <title>Code coverage report for Services/navigation.service.js</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../prettify.css" />
     <link rel="stylesheet" href="../base.css" />
@@ -19,13 +19,13 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../index.html">All files</a> / <a href="index.html">Services</a> car.service.js</h1>
+        <h1><a href="../index.html">All files</a> / <a href="index.html">Services</a> navigation.service.js</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">78.57% </span>
+                <span class="strong">78.18% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>44/56</span>
+                <span class='fraction'>43/55</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">78.57% </span>
+                <span class="strong">78.18% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>44/56</span>
+                <span class='fraction'>43/55</span>
             </div>
         
             
@@ -117,20 +117,18 @@
 <a name='L52'></a><a href='#L52'>52</a>
 <a name='L53'></a><a href='#L53'>53</a>
 <a name='L54'></a><a href='#L54'>54</a>
-<a name='L55'></a><a href='#L55'>55</a>
-<a name='L56'></a><a href='#L56'>56</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L55'></a><a href='#L55'>55</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
@@ -174,23 +172,22 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span></td><td class="text"><pre class="prettyprint lang-js">const mongoose = require('mongoose');
-const Car = require('../db/schemas/Car');
+const Navigation = require('../db/schemas/Navigation');
 &nbsp;
-async function createCar(details) {
+async function createNavigation(details) {
     try{
-        return await Car.create(details)
+        return await Navigation.create(details)
     }
     catch(err) {
         console.error(err);
     }
 &nbsp;
-    return false;
-}
+    return false;}
 &nbsp;
-async function getCar(filter = {}) {
+async function getNavigation(filter = {}) {
     try {
-        const car = await Car.find(filter).exec();
-        return car;
+        const navigation = await Navigation.find(filter).exec();
+        return navigation;
     }
 <span class="branch-0 cbranch-no" title="branch not covered" >    catch(err) {</span>
 <span class="cstat-no" title="statement not covered" >        console.error(err);</span>
@@ -198,10 +195,10 @@ async function getCar(filter = {}) {
 <span class="cstat-no" title="statement not covered" >     return false;</span>
 <span class="cstat-no" title="statement not covered" >}</span>
 &nbsp;
-async function updateCar(filter, newDetails) {
+async function updateNavigation(filter, newDetails) {
     try {
-        const updatedCar = await Car.findOneAndUpdate(filter, newDetails, {new: true}).exec();
-        return updatedCar;
+        const updatedNavigation = await Navigation.findOneAndUpdate(filter, newDetails, {new: true}).exec();
+        return updatedNavigation;
     }
 <span class="branch-0 cbranch-no" title="branch not covered" >    catch(err) {</span>
 <span class="cstat-no" title="statement not covered" >        console.error(err);</span>
@@ -209,10 +206,10 @@ async function updateCar(filter, newDetails) {
 <span class="cstat-no" title="statement not covered" >     return false;</span>
 <span class="cstat-no" title="statement not covered" >}</span>
 &nbsp;
-async function deleteCar(filter) {
+async function deleteNavigation(filter) {
     try {
-        const deletedCar = await Car.findOneAndDelete(filter).exec();
-        if (!deletedCar) {
+        const deletedNavigation = await Navigation.findOneAndDelete(filter).exec();
+        if (!deletedNavigation) {
             return false;
         }
         return true;
@@ -224,10 +221,10 @@ async function deleteCar(filter) {
 <span class="cstat-no" title="statement not covered" >}</span>
 &nbsp;
 module.exports = { 
-    createCar,
-    getCar,
-    updateCar,
-    deleteCar,
+    createNavigation,
+    getNavigation,
+    updateNavigation,
+    deleteNavigation,
 }</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -235,7 +232,7 @@ module.exports = {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Mon Apr 18 2022 19:02:37 GMT+0300 (Israel Daylight Time)
+                at Mon Apr 18 2022 19:13:41 GMT+0300 (Israel Daylight Time)
             </div>
         <script src="../prettify.js"></script>
         <script>

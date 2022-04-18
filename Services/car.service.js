@@ -9,12 +9,12 @@ async function createCar(details) {
         console.error(err);
     }
 
-    return false;}
+    return false;
+}
 
 async function getCar(filter = {}) {
     try {
         const car = await Car.find(filter).exec();
-        console.log(car);
         return car;
     }
     catch(err) {
