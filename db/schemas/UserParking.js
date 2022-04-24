@@ -6,20 +6,19 @@ const userParkingSchema = mongoose.Schema({
         ref: 'User',
         required: true
     },
-    type: {
-        type: 'string',
-        enum: ['share', 'get'],
-        required: true
-    },
-    location: {
+    generalLocation: {
         type: 'string',
         required: true,
     },
-    carParked: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Car',
-        required: true
+    specificLocation: {
+        type: 'string',
+        required: true,
     },
+    // carParked: {
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: 'Car',
+    //     required: true
+    // },
     timeStamp: {
         type: 'Date',
         required: true
