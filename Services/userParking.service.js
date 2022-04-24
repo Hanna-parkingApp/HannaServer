@@ -3,6 +3,7 @@ const UserParking = require('../db/schemas/UserParking');
 
 async function createUserParking(details) {
     try{
+        console.log("details: ", details);
         return await UserParking.create(details)
     }
     catch(err) {
