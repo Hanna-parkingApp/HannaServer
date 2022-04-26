@@ -1,6 +1,7 @@
 const User = require('../../db/schemas/User');
 const RefreshToken = require('../../db/schemas/RefreshToken');
-const refreshToken = require('../../Services/token.service')
+const refreshToken = require('../../Services/token.service');
+const userService = require('../../services/user.service');
 
 async function loginController(req, res) {
     try {
@@ -11,8 +12,9 @@ async function loginController(req, res) {
             return res.status(400).json({message: "Failed to login, Please enter email and password"});
         }
 
-        const user = await User.findOne({ email });
-        if (user) {
+        const userArray = await userService.getUser({email: email});
+        if (userArray[0]) {
+            const user = userArray[0];
             if (password == user.password) {
                 userId = user.id;
                 const userRefreshToken = await RefreshToken.findOne({ user: userId, revoked: undefined }).exec();

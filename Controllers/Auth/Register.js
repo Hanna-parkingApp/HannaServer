@@ -1,5 +1,6 @@
 const User = require('../../db/schemas/User');
 const refreshToken = require('../../Services/token.service')
+const userService = require('../../services/user.service');
 
 async function registerController(req, res) {
     try {
@@ -8,17 +9,18 @@ async function registerController(req, res) {
             return res.status(400).json({ message:"All Fields must be provided"})
         }
     
-        const existingUser = await User.findOne({ email }).exec();
-        if (existingUser) {
+        const existingUser = await userService.getUser({email: email});
+        //User.findOne({ email }).exec();
+        if (existingUser.length > 0) {
             return res.status(400).json({ message:"Email already in use"});
         }
     
-        const newUser = await User.create({ 
+        const newUser = await userService.createUser({
             email,
             password,
             fullName,
-            points: 0
-        });
+            points: 0 
+        })
     
         const rToken = await refreshToken.createRefreshToken(newUser._id);
         const tokens = {}
