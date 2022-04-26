@@ -13,7 +13,7 @@ async function shareParkController(req, res) {
     if (!(userToken && specificLocation && genralLocation && timeStamp )) {
         return res.status(400).json({ message:"All Fields must be provided"})
     }
-    const specificLocation_json = JSON.stringify(spaecificLocation);
+    const specificLocation_json = JSON.stringify(specificLocation);
 
     const user = await getUser({token: userToken});
     // console.log("!!!!!!!!!!!!!!!",user);
