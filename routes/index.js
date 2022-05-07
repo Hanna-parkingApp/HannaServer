@@ -4,6 +4,7 @@ const registerController = require('../Controllers/Auth/Register');
 const loginController = require('../Controllers/Auth/Login');
 const parkingSearcherController = require('../Controllers/App/ParkingSearcherController');
 const shareParkController = require('../Controllers/App/ShareParkController');
+const updateProfileController = require('../Controllers/App/UpdateProfileController');
 
 const auth = require('../Middleware/Auth');
 
@@ -14,6 +15,7 @@ router.post('/register', registerController);
 router.post('/login', loginController);
 router.post('/find-parks', parkingSearcherController);
 router.post('/share-parks', shareParkController);
+router.post('/update-profile', updateProfileController);
 
 
 module.exports = router;

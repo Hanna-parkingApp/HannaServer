@@ -16,14 +16,14 @@ async function shareParkController(req, res) {
     const specificLocation_json = JSON.stringify(specificLocation);
 
     const user = await getUser({token: userToken});
-    // console.log("!!!!!!!!!!!!!!!",user);
+    console.log("!!!!!!!!!!!!!!!",user);
 
-    if(user==null)
+    if(user==null || user.length == 0)
     {
         return res.status(500).json({ message:"user not found in DB"})
     }
     let userID = user[0]._id;
-    // console.log("@@@@@",userID);
+    console.log("@@@@@",userID);
     try{
 
     const newParkingUSER = await createUserParking({
