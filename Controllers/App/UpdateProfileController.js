@@ -1,5 +1,5 @@
 const {updateUser} = require('../../Services/user.service');
-const {updateCar} = require('../../Services/car.service');
+const {updateCar, createCar} = require('../../Services/car.service');
 const {getUser} = require('../../Services/user.service');
 
 async function updateProfileController(req, res) {
@@ -8,7 +8,7 @@ async function updateProfileController(req, res) {
         const { email, fullName, carNumber, carMaker, carModel, carColor } = req.body;
 
         if (!(email && fullName && carNumber && carMaker && carModel && carColor)) {
-            return res.status(400).json({ message:"All Fields must be provided"})
+            return res.status(400).json({ message:"All fields must be provided"})
         }
         
         const existingUser = await getUser({ email });
@@ -16,6 +16,7 @@ async function updateProfileController(req, res) {
             return res.status(400).json({ message: "Email is not valid"});
         }
 
+        let carId;
         const updatedCar = await updateCar(
             {
                 _id: existingUser[0].cars[0]
@@ -28,7 +29,16 @@ async function updateProfileController(req, res) {
             }
         )
         if (!updatedCar) {
-            return res.status(500).json({ message: "Error updating car details!"});
+            const newCar = await createCar({
+                registrationNumber: carNumber,
+                make: carMaker,
+                model: carModel,
+                color: carColor
+            })
+            carId = newCar._id;
+        
+        } else {
+            carId = updatedCar._id;
         }
 
         const updatedUser = await updateUser(
@@ -38,7 +48,7 @@ async function updateProfileController(req, res) {
             {
                email,
                fullName,
-               cars: updatedCar._id 
+               cars: carId
             }
         )
 
