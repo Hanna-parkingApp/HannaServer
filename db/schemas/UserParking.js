@@ -14,11 +14,11 @@ const userParkingSchema = mongoose.Schema({
         type: 'string',
         required: true,
     },
-    // carParked: {
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     ref: 'Car',
-    //     required: true
-    // },
+    carParked: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Car',
+        required: true
+    },
     timeStamp: {
         type: 'Date',
         required: true
