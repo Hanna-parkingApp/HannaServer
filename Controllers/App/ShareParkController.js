@@ -6,8 +6,6 @@ const User = require('../../db/schemas/User');
 async function shareParkController(req, res) {
    try {
 
-    console.log(req.body);
-
     const { userToken , specificLocation, genralLocation, timeStamp } = req.body;
 
     if (!(userToken && specificLocation && genralLocation && timeStamp )) {
@@ -16,20 +14,15 @@ async function shareParkController(req, res) {
     const specificLocation_json = JSON.stringify(specificLocation);
 
     const user = await getUser({token: userToken});
-    console.log("!!!!!!!!!!!!!!!",user);
 
     if(user==null || user.length == 0)
     {
         return res.status(500).json({ message:"user not found in DB"})
     }
     let userID = user[0]._id;
-    console.log("@@@@@",userID);
-
-    // find car id by car number
-    console.log("&******", user[0].cars[0]);
     
     try{
-        await createUserParking({
+         const userParking = await createUserParking({
             userId: userID ,
             specificLocation: specificLocation_json,
             generalLocation: genralLocation,
@@ -37,7 +30,13 @@ async function shareParkController(req, res) {
             carParked: user[0].cars[0]
         });
 
-    return res.status(200).json({"message": "user parking successfully.",
+        console.log("user parking id:## ",  userParking._id)
+        
+        const userParkingId = userParking._id;
+
+    return res.status(200).json({
+        "message": "user parking successfully.",
+        userParkingId
     });
     }
     catch(e){
