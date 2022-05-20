@@ -6,6 +6,7 @@ const registerController = require('../Controllers/Auth/Register');
 const {generateRecoveryCode, verifyRecoveryCode, changePassword} = require('../Controllers/Auth/RecoverPassword');
 const shareParkController = require('../Controllers/App/ShareParkController');
 const updateProfileController = require('../Controllers/App/UpdateProfileController');
+const checkParkingStatusController = require('../Controllers/App/CheckParkingStatusController');
 
 const auth = require('../Middleware/Auth');
 
@@ -19,5 +20,6 @@ router.post('/register', registerController);
 router.post('/share-parks', shareParkController);
 router.post('/update-profile', updateProfileController);
 router.post('/verifyRecoveryCode', verifyRecoveryCode);
+router.post('/parking-status', checkParkingStatusController);
 
 module.exports = router;
