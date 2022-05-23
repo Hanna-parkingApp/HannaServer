@@ -8,6 +8,7 @@ const shareParkController = require('../Controllers/App/ShareParkController');
 const updateProfileController = require('../Controllers/App/UpdateProfileController');
 const checkParkingStatusController = require('../Controllers/App/CheckParkingStatusController');
 const navigationController = require('../Controllers/App/NavigationController');
+const setParkingStatusController = require('../Controllers/App/setParkingStatusController');
 
 const auth = require('../Middleware/Auth');
 
@@ -23,5 +24,7 @@ router.post('/update-profile', updateProfileController);
 router.post('/verifyRecoveryCode', verifyRecoveryCode);
 router.post('/parking-status', checkParkingStatusController);
 router.post('/navigation-updater', navigationController);
+router.post('/update-parking-status', setParkingStatusController);
+
 
 module.exports = router;
