@@ -18,13 +18,13 @@ router.post('/changePassword', changePassword)
 router.post('/find-parks', parkingSearcherController);
 router.post('/generateRecoveryCode', generateRecoveryCode);
 router.post('/login', loginController);
+router.post('/navigation-updater', navigationController);
+router.post('/parking-status', checkParkingStatusController);
 router.post('/register', registerController);
 router.post('/share-parks', shareParkController);
 router.post('/update-profile', updateProfileController);
-router.post('/verifyRecoveryCode', verifyRecoveryCode);
-router.post('/parking-status', checkParkingStatusController);
-router.post('/navigation-updater', navigationController);
 router.post('/update-parking-status', setParkingStatusController);
+router.post('/verifyRecoveryCode', verifyRecoveryCode);
 
 
 module.exports = router;
