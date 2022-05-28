@@ -4,4 +4,11 @@ function addDays(date, days) {
     return result;
 }
 
-module.exports = { addDays }
+function checkDatewithinMinutesOfOtherDate(date1, date2, minutes) {
+    const MINUTE = 60 * 1000;
+    const rangeStart = date1.getTime();
+    const rangeEnd = date1.getTime() + MINUTE*minutes; 
+    return date2.getTime() >= rangeStart && date2.getTime() <= rangeEnd;
+}
+
+module.exports = { addDays, checkDatewithinMinutesOfOtherDate }

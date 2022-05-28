@@ -6,7 +6,7 @@ const userParkingSchema = mongoose.Schema({
         ref: 'User',
         required: true
     },
-    generalLocation: {
+    address: {
         type: 'string',
         required: true,
     },
@@ -20,6 +20,10 @@ const userParkingSchema = mongoose.Schema({
         required: true
     },
     timeStamp: {
+        type: 'Date',
+        required: true
+    },
+    timeFreed: {
         type: 'Date',
         required: true
     },
