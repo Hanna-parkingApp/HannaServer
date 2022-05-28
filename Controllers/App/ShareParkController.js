@@ -29,7 +29,7 @@ console.log("$$$$req body",req.body);
          const userParking = await createUserParking({
             userId: userID ,
             specificLocation: specificLocation_json,
-            generalLocation: genralLocation,
+            address: genralLocation,
             timeStamp,
             carParked: user[0].cars[0]
         })

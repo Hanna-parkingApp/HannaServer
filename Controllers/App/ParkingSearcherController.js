@@ -15,13 +15,13 @@ async function parkingController(req, res) {
     try {
         const demoParking1 = {
             userId: '625ffa17c798ef69449ca699',
-            generalLocation: req.body.generalLoc,
+            address: req.body.generalLoc,
             specificLocation: coords_json,
             //carParked: '6229256',
             timeStamp: new Date().getDate()
         }
 
-        const nearbyParking = await getUserParking({generalLocation: generalLoc})
+        const nearbyParking = await getUserParking({address: generalLoc})
 
         console.log(parsedDate.getTime())
         const relevantParking = nearbyParking.filter(
