@@ -23,10 +23,6 @@ const userParkingSchema = mongoose.Schema({
         type: 'Date',
         required: true
     },
-    timeFreed: {
-        type: 'Date',
-        required: true
-    },
     isAvail: {
         type: 'boolean',
         default: true,
