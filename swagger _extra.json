@@ -817,30 +817,23 @@
           "type": "integer",
           "format": "int64"
         },
-        "ParkingId": {
-          "type": "integer",
+        "carParked": {
+          "type": "string",
           "format": "int64"
         },
-        "quantity": {
-          "type": "integer",
+        "parkingUser": {
+          "type": "String",
           "format": "int32"
         },
-        "shipDate": {
-          "type": "string",
+        "sharingUser": {
+          "type": "String",
           "format": "date-time"
         },
-        "status": {
-          "type": "string",
-          "description": "transaction Status",
-          "enum": [
-            "placed",
-            "approved",
-            "delivered"
-          ]
+        "location": {
+          "type": "string"
         },
-        "complete": {
-          "type": "boolean",
-          "default": false
+        "timeStamp": {
+          "type": "Date"
         }
       },
       "xml": {
