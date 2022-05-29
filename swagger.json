@@ -3,7 +3,7 @@
   "info": {
     "description": "This is a sample server Parkingapp server.  You can find out more about     Swagger at [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).      For this sample, you can use the api key `special-key` to test the authorization     filters.",
     "version": "1.0.0",
-    "title": "Swagger HannaParkingApp",
+    "title": "Swagger ParkingApp",
     "termsOfService": "http://swagger.io/terms/",
     "contact": {
       "email": "apiteam@swagger.io"
@@ -17,7 +17,19 @@
   "basePath": "/v2",
   "tags": [
     {
-      "name": "user",
+      "name": "Parking",
+      "description": "Everything about your Parkings",
+      "externalDocs": {
+        "description": "Find out more",
+        "url": "http://swagger.io"
+      }
+    },
+    {
+      "name": "Hand-Shake Transactions",
+      "description": "Access to Parkingapp transactions"
+    },
+    {
+      "name": "User",
       "description": "Operations about user",
       "externalDocs": {
         "description": "Find out more about our app",
@@ -30,10 +42,866 @@
     "http"
   ],
   "paths": {
+    "/share-parks": {
+      "post": {
+        "tags": [
+          "Parking"
+        ],
+        "summary": "Add a new Parking to the app",
+        "description": "",
+        "operationId": "addParking",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/xml",
+          {
+            "swagger": "2.0",
+            "info": {
+              "description": "This is a sample server Parkingapp server.  You can find out more about     Swagger at [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).      For this sample, you can use the api key `special-key` to test the authorization     filters.",
+              "version": "1.0.0",
+              "title": "Swagger HannaParkingApp",
+              "termsOfService": "http://swagger.io/terms/",
+              "contact": {
+                "email": "apiteam@swagger.io"
+              },
+              "license": {
+                "name": "Apache 2.0",
+                "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+              }
+            },
+            "host": "ParkingApp.swagger.io",
+            "basePath": "/v2",
+            "tags": [
+              {
+                "name": "user",
+                "description": "Operations about user",
+                "externalDocs": {
+                  "description": "Find out more about our app",
+                  "url": "http://swagger.io"
+                }
+              }
+            ],
+            "schemes": [
+              "https",
+              "http"
+            ],
+            "paths": {
+              "/register": {
+                "post": {
+                  "tags": [
+                    "user"
+                  ],
+                  "summary": "Create user",
+                  "description": "This can only be done by the logged in user.",
+                  "operationId": "createUser",
+                  "produces": [
+                    "application/xml",
+                    "application/json"
+                  ],
+                  "parameters": [
+                    {
+                      "in": "body",
+                      "name": "body",
+                      "description": "Created user object",
+                      "required": true,
+                      "schema": {
+                        "$ref": "#/definitions/User"
+                      }
+                    }
+                  ],
+                  "responses": {
+                    "default": {
+                      "description": "successful operation"
+                    }
+                  }
+                }
+              },
+              "/login": {
+                "get": {
+                  "tags": [
+                    "user"
+                  ],
+                  "summary": "Logs user into the system",
+                  "description": "",
+                  "operationId": "loginUser",
+                  "produces": [
+                    "application/xml",
+                    "application/json"
+                  ],
+                  "parameters": [
+                    {
+                      "name": "email",
+                      "in": "query",
+                      "description": "The email for login",
+                      "required": true,
+                      "type": "string"
+                    },
+                    {
+                      "name": "password",
+                      "in": "query",
+                      "description": "The password for login",
+                      "required": true,
+                      "type": "string"
+                    }
+                  ],
+                  "responses": {
+                    "200": {
+                      "description": "successful operation",
+                      "schema": {
+                        "type": "string"
+                      },
+                      "headers": {
+                        "X-Rate-Limit": {
+                          "type": "integer",
+                          "format": "int32",
+                          "description": "calls per hour allowed by the user"
+                        },
+                        "X-Expires-After": {
+                          "type": "string",
+                          "format": "date-time",
+                          "description": "date in UTC when token expires"
+                        }
+                      }
+                    },
+                    "400": {
+                      "description": "Invalid username/password supplied"
+                    }
+                  }
+                }
+              },
+              "/changePassword": {
+                "get": {
+                  "tags": [
+                    "user"
+                  ],
+                  "summary": "recovery password",
+                  "description": "",
+                  "operationId": "changePassword",
+                  "produces": [
+                    "application/xml",
+                    "application/json"
+                  ],
+                  "parameters": [
+                    {
+                      "name": "email",
+                      "in": "query",
+                      "description": "The email of the user",
+                      "required": true,
+                      "type": "string"
+                    }
+                  ],
+                  "responses": {
+                    "200": {
+                      "description": "successful operation",
+                      "schema": {
+                        "type": "string"
+                      },
+                      "headers": {
+                        "X-Rate-Limit": {
+                          "type": "integer",
+                          "format": "int32",
+                          "description": "calls per hour allowed by the user"
+                        },
+                        "X-Expires-After": {
+                          "type": "string",
+                          "format": "date-time",
+                          "description": "date in UTC when token expires"
+                        }
+                      }
+                    },
+                    "400": {
+                      "description": "Invalid email supplied"
+                    }
+                  }
+                }
+              },
+              "/find-parks": {
+                "get": {
+                  "tags": [
+                    "user"
+                  ],
+                  "summary": "find available parks",
+                  "description": "",
+                  "operationId": "find-parks",
+                  "produces": [
+                    "application/xml",
+                    "application/json"
+                  ],
+                  "parameters": [
+                    {
+                      "name": "userId",
+                      "in": "query",
+                      "description": "The id of the user",
+                      "required": true,
+                      "type": "string"
+                    },
+                    {
+                      "name": "address",
+                      "in": "query",
+                      "description": "The address of the parking",
+                      "required": true,
+                      "type": "string"
+                    },
+                    {
+                      "name": "specificLocation",
+                      "in": "query",
+                      "description": "The specific Location of the parking",
+                      "required": true,
+                      "type": "string"
+                    },         
+                     {
+                      "name": "timeStamp",
+                      "in": "query",
+                      "description": "Time to get out of the parking",
+                      "required": true,
+                      "type": "string"
+                    }
+                  ],
+                  "responses": {
+                    "200": {
+                      "description": "successful operation",
+                      "schema": {
+                        "type": "string"
+                      },
+                      "headers": {
+                        "X-Rate-Limit": {
+                          "type": "integer",
+                          "format": "int32",
+                          "description": "calls per hour allowed by the user"
+                        },
+                        "X-Expires-After": {
+                          "type": "string",
+                          "format": "date-time",
+                          "description": "date in UTC when token expires"
+                        }
+                      }
+                    },
+                    "400": {
+                      "description": "Invalid email supplied"
+                    }
+                  }
+                }
+              },
+              "/generateRecoveryCode": {
+                "get": {
+                  "tags": [
+                    "user"
+                  ],
+                  "summary": "generate Recovery Code",
+                  "description": "",
+                  "operationId": "generateRecoveryCode",
+                  "produces": [
+                    "application/xml",
+                    "application/json"
+                  ],
+                  "parameters": [
+                    {
+                      "name": "email",
+                      "in": "query",
+                      "description": "The email for login",
+                      "required": true,
+                      "type": "string"
+                    },
+                    {
+                      "name": "password",
+                      "in": "query",
+                      "description": "The password for login",
+                      "required": true,
+                      "type": "string"
+                    }
+                  ],
+                  "responses": {
+                    "200": {
+                      "description": "successful operation",
+                      "schema": {
+                        "type": "string"
+                      },
+                      "headers": {
+                        "X-Rate-Limit": {
+                          "type": "integer",
+                          "format": "int32",
+                          "description": "calls per hour allowed by the user"
+                        },
+                        "X-Expires-After": {
+                          "type": "string",
+                          "format": "date-time",
+                          "description": "date in UTC when token expires"
+                        }
+                      }
+                    },
+                    "400": {
+                      "description": "Invalid email supplied"
+                    }
+                  }
+                }
+              },
+              "/navigation-updater": {
+                "get": {
+                  "tags": [
+                    "user"
+                  ],
+                  "summary": "navigation updater",
+                  "description": "",
+                  "operationId": "navigation-updater",
+                  "produces": [
+                    "application/xml",
+                    "application/json"
+                  ],
+                  "parameters": [
+                    {
+                      "name": "userId",
+                      "in": "query",
+                      "description": "The id of the user",
+                      "required": true,
+                      "type": "string"
+                    },
+                    {
+                      "name": "userToken",
+                      "in": "query",
+                      "description": "The userToken of the user",
+                      "required": true,
+                      "type": "string"
+                    },
+                    {
+                      "name": "myLoc",
+                      "in": "query",
+                      "description": "The location of the user",
+                      "required": true,
+                      "type": "string"
+                    }
+                  ],
+                  "responses": {
+                    "200": {
+                      "description": "successful operation",
+                      "schema": {
+                        "type": "string"
+                      },
+                      "headers": {
+                        "X-Rate-Limit": {
+                          "type": "integer",
+                          "format": "int32",
+                          "description": "calls per hour allowed by the user"
+                        },
+                        "X-Expires-After": {
+                          "type": "string",
+                          "format": "date-time",
+                          "description": "date in UTC when token expires"
+                        }
+                      }
+                    },
+                    "400": {
+                      "description": "Invalid id supplied"
+                    }
+                  }
+                }
+              }
+            },
+            "securityDefinitions": {
+              "Parkingapp_auth": {
+                "type": "oauth2",
+                "authorizationUrl": "http://Parkingapp.swagger.io/oauth/dialog",
+                "flow": "implicit",
+                "scopes": {
+                  "write:Parkings": "modify Parkings in your account",
+                  "read:Parkings": "read your Parkings"
+                }
+              },
+              "api_key": {
+                "type": "apiKey",
+                "name": "api_key",
+                "in": "header"
+              }
+            },
+            "definitions": {
+              "transaction": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "integer",
+                    "format": "int64"
+                  },
+                  "ParkingId": {
+                    "type": "integer",
+                    "format": "int64"
+                  },
+                  "quantity": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "shipDate": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "status": {
+                    "type": "string",
+                    "description": "transaction Status",
+                    "enum": [
+                      "placed",
+                      "approved",
+                      "delivered"
+                    ]
+                  },
+                  "complete": {
+                    "type": "boolean",
+                    "default": false
+                  }
+                },
+                "xml": {
+                  "name": "transaction"
+                }
+              },
+              "User": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "integer",
+                    "format": "int64"
+                  },
+                  "username": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  },
+                  "carMake": {
+                    "type": "string"
+                  },
+                  "carModel": {
+                    "type": "string"
+                  },
+                  "carNumber": {
+                    "type": "integer",
+                    "format": "int64"
+                  },
+                  "userStatus": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "User Status"
+                  }
+                },
+                "xml": {
+                  "name": "User"
+                }
+              },
+              "Parking": {
+                "type": "object",
+                "required": [
+                  "name",
+                  "photoUrls"
+                ],
+                "properties": {
+                  "id": {
+                    "type": "integer",
+                    "format": "int64"
+                  },
+                  "category": {
+                    "$ref": "#/definitions/Category"
+                  },
+                  "name": {
+                    "type": "string",
+                    "example": "doggie"
+                  },
+                  "photoUrls": {
+                    "type": "array",
+                    "xml": {
+                      "name": "photoUrl",
+                      "wrapped": true
+                    },
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "tags": {
+                    "type": "array",
+                    "xml": {
+                      "name": "tag",
+                      "wrapped": true
+                    },
+                    "items": {
+                      "$ref": "#/definitions/Tag"
+                    }
+                  },
+                  "status": {
+                    "type": "string",
+                    "description": "Parking status in the app",
+                    "enum": [
+                      "available",
+                      "pending",
+                      "sold"
+                    ]
+                  }
+                },
+                "xml": {
+                  "name": "Parking"
+                }
+              },
+              "ApiResponse": {
+                "type": "object",
+                "properties": {
+                  "code": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "type": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "externalDocs": {
+              "description": "Find out more about Swagger",
+              "url": "http://swagger.io"
+            }
+          }
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "query",
+            "description": "The id of the user",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "address",
+            "in": "query",
+            "description": "The address of the parking",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "specificLocation",
+            "in": "query",
+            "description": "The specific Location of the parking",
+            "required": true,
+            "type": "string"
+          },         
+           {
+            "name": "timeStamp",
+            "in": "query",
+            "description": "Time to get out of the parking",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "security": [
+          {
+            "Parkingapp_auth": [
+              "write:Parkings",
+              "read:Parkings"
+            ]
+          }
+        ]
+      }
+    },
+    "/find-parks": {
+      "get": {
+        "tags": [
+          "Parking"
+        ],
+        "summary": "Finds Parkings by status",
+        "description": "Multiple status values can be provided with comma separated strings",
+        "operationId": "findParkingsByStatus",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "query",
+            "description": "The id of the user",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "address",
+            "in": "query",
+            "description": "The address of the parking",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "specificLocation",
+            "in": "query",
+            "description": "The specific Location of the parking",
+            "required": true,
+            "type": "string"
+          },         
+           {
+            "name": "timeStamp",
+            "in": "query",
+            "description": "Time to get out of the parking",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Parking"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        },
+        "security": [
+          {
+            "Parkingapp_auth": [
+              "write:Parkings",
+              "read:Parkings"
+            ]
+          }
+        ]
+      }
+    },
+    "/navigation-updater": {
+      "get": {
+        "tags": [
+          "Parking"
+        ],
+        "summary": "navigation updater",
+        "description": "",
+        "operationId": "navigation-updater",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "query",
+            "description": "The id of the user",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "userToken",
+            "in": "query",
+            "description": "The userToken of the user",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "myLoc",
+            "in": "query",
+            "description": "The location of the user",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "string"
+            },
+            "headers": {
+              "X-Rate-Limit": {
+                "type": "integer",
+                "format": "int32",
+                "description": "calls per hour allowed by the user"
+              },
+              "X-Expires-After": {
+                "type": "string",
+                "format": "date-time",
+                "description": "date in UTC when token expires"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid email supplied"
+          }
+        }
+      }
+    },
+    "/parking-status": {
+      "get": {
+        "tags": [
+          "Parking"
+        ],
+        "summary": "get parking status by UserID",
+        "description": "",
+        "operationId": "parking-status",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "query",
+            "description": "The id of the user",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "string"
+            },
+            "headers": {
+              "X-Rate-Limit": {
+                "type": "integer",
+                "format": "int32",
+                "description": "calls per hour allowed by the user"
+              },
+              "X-Expires-After": {
+                "type": "string",
+                "format": "date-time",
+                "description": "date in UTC when token expires"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid id supplied"
+          }
+        }
+      }
+    },
+    "/update-parking-status": {
+      "get": {
+        "tags": [
+          "Parking"
+        ],
+        "summary": "update parking status by UserParkingID",
+        "description": "",
+        "operationId": "parking-status",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "UserParkingID",
+            "in": "query",
+            "description": "The id of the user",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "string"
+            },
+            "headers": {
+              "X-Rate-Limit": {
+                "type": "integer",
+                "format": "int32",
+                "description": "calls per hour allowed by the user"
+              },
+              "X-Expires-After": {
+                "type": "string",
+                "format": "date-time",
+                "description": "date in UTC when token expires"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid id supplied"
+          }
+        }
+      }
+    },
+    "/get-transaction": {
+      "get": {
+        "tags": [
+          "Hand-Shake Transactions"
+        ],
+        "summary": "Find purchase transaction by ID",
+        "description": "For valid response try integer IDs with value >= 1 and <= 10.         Other values will generated exceptions",
+        "operationId": "gettransactionById",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "transactionId",
+            "in": "path",
+            "description": "ID of Parking that needs to be fetched",
+            "required": true,
+            "type": "integer",
+            "maximum": 10,
+            "minimum": 1,
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/transaction"
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "transaction not found"
+          }
+        }
+      }
+    },
+    "/delete-transaction": {
+      "delete": {
+        "tags": [
+          "Hand-Shake Transactions"
+        ],
+        "summary": "Delete purchase transaction by ID",
+        "description": "For valid response try integer IDs with positive integer value.         Negative or non-integer values will generate API errors",
+        "operationId": "deletetransaction",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "transactionId",
+            "in": "path",
+            "description": "ID of the transaction that needs to be deleted",
+            "required": true,
+            "type": "integer",
+            "minimum": 1,
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "transaction not found"
+          }
+        }
+      }
+    },
     "/register": {
       "post": {
         "tags": [
-          "user"
+          "User"
         ],
         "summary": "Create user",
         "description": "This can only be done by the logged in user.",
@@ -63,7 +931,7 @@
     "/login": {
       "get": {
         "tags": [
-          "user"
+          "User"
         ],
         "summary": "Logs user into the system",
         "description": "",
@@ -83,7 +951,7 @@
           {
             "name": "password",
             "in": "query",
-            "description": "The password for login in clear text",
+            "description": "The password for login",
             "required": true,
             "type": "string"
           }
@@ -112,6 +980,232 @@
           }
         }
       }
+    },
+    "/logout": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Logs out current logged in user session",
+        "description": "",
+        "operationId": "logoutUser",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/get-user": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "get user details by UserID",
+        "description": "",
+        "operationId": "get-users",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "query",
+            "description": "The id of the user",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "string"
+            },
+            "headers": {
+              "X-Rate-Limit": {
+                "type": "integer",
+                "format": "int32",
+                "description": "calls per hour allowed by the user"
+              },
+              "X-Expires-After": {
+                "type": "string",
+                "format": "date-time",
+                "description": "date in UTC when token expires"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid id supplied"
+          }
+        }
+      }
+    },
+    "/changePassword": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "recovery password",
+        "description": "",
+        "operationId": "changePassword",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "email",
+            "in": "query",
+            "description": "The email of the user",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "string"
+            },
+            "headers": {
+              "X-Rate-Limit": {
+                "type": "integer",
+                "format": "int32",
+                "description": "calls per hour allowed by the user"
+              },
+              "X-Expires-After": {
+                "type": "string",
+                "format": "date-time",
+                "description": "date in UTC when token expires"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid email supplied"
+          }
+        }
+      }
+    },
+    "/generateRecoveryCode": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "generate Recovery Code",
+        "description": "",
+        "operationId": "generateRecoveryCode",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "email",
+            "in": "query",
+            "description": "The email for login",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "password",
+            "in": "query",
+            "description": "The password for login",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "string"
+            },
+            "headers": {
+              "X-Rate-Limit": {
+                "type": "integer",
+                "format": "int32",
+                "description": "calls per hour allowed by the user"
+              },
+              "X-Expires-After": {
+                "type": "string",
+                "format": "date-time",
+                "description": "date in UTC when token expires"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid email supplied"
+          }
+        }
+      }
+    },
+    "/update-profile": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "update user fields",
+        "description": "This can only be done by the logged in user.",
+        "operationId": "",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "update user object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/delete-user": {
+      "delete": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Delete user",
+        "description": "This can only be done by the logged in user.",
+        "operationId": "deleteUser",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "description": "The name that needs to be deleted",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid username supplied"
+          },
+          "404": {
+            "description": "User not found"
+          }
+        }
+      }
     }
   },
   "securityDefinitions": {
@@ -131,51 +1225,96 @@
     }
   },
   "definitions": {
-    "transaction": {
+    "Transaction": {
       "type": "object",
       "properties": {
         "id": {
           "type": "integer",
           "format": "int64"
         },
-        "ParkingId": {
-          "type": "integer",
-          "format": "int64"
+        "timeStamp": {
+          "type": "Date"
         },
-        "quantity": {
-          "type": "integer",
-          "format": "int32"
+        "location": {
+          "type": "string"
         },
-        "shipDate": {
-          "type": "string",
-          "format": "date-time"
+        "sharingUser": {
+          "type": "string"
         },
-        "status": {
-          "type": "string",
-          "description": "transaction Status",
-          "enum": [
-            "placed",
-            "approved",
-            "delivered"
-          ]
+        "parkingUser": {
+          "type": "string"
         },
-        "complete": {
-          "type": "boolean",
-          "default": false
+        "carParked": {
+          "type": "string"
         }
       },
       "xml": {
-        "name": "transaction"
+        "name": "Transaction"
       }
     },
-    "Category": {
+    "Navigation": {
       "type": "object",
       "properties": {
         "id": {
           "type": "integer",
           "format": "int64"
         },
-        "name": {
+        "searcherUserId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "shareCurLoc": {
+          "type": "string"
+        },
+        "searcherCurLoc": {
+          "type": "string"
+        },
+        "parkLoc": {
+          "type": "string"
+        },
+        "navigationStatus": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "Transaction"
+      }
+    },
+    "Car": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "registrationNumber": {
+          "type": "string"
+        },
+        "make": {
+          "type": "string"
+        },
+        "model": {
+          "type": "string"
+        },
+        "color": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "Category"
+      }
+    },
+    "locationValue": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "city": {
+          "type": "string"
+        },
+        "value": {
           "type": "string"
         }
       },
@@ -211,75 +1350,38 @@
         },
         "userStatus": {
           "type": "integer",
-          "format": "int32",
-          "description": "User Status"
+          "format": "int32"
         }
       },
       "xml": {
         "name": "User"
       }
     },
-    "Tag": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "name": {
-          "type": "string"
-        }
-      },
-      "xml": {
-        "name": "Tag"
-      }
-    },
     "Parking": {
       "type": "object",
-      "required": [
-        "name",
-        "photoUrls"
-      ],
       "properties": {
         "id": {
           "type": "integer",
           "format": "int64"
         },
-        "category": {
-          "$ref": "#/definitions/Category"
+        "userId": {
+          "type": "integer",
+          "format": "int64"
         },
-        "name": {
-          "type": "string",
-          "example": "doggie"
+        "address": {
+          "type": "string"
         },
-        "photoUrls": {
-          "type": "array",
-          "xml": {
-            "name": "photoUrl",
-            "wrapped": true
-          },
-          "items": {
-            "type": "string"
-          }
+        "specificLocation": {
+          "type": "string"
         },
-        "tags": {
-          "type": "array",
-          "xml": {
-            "name": "tag",
-            "wrapped": true
-          },
-          "items": {
-            "$ref": "#/definitions/Tag"
-          }
+        "carParked": {
+          "type": "string"
         },
-        "status": {
-          "type": "string",
-          "description": "Parking status in the app",
-          "enum": [
-            "available",
-            "pending",
-            "sold"
-          ]
+        "timeStamp": {
+          "type": "Date"
+        },
+        "timeFreed": {
+          "type": "Date"
         }
       },
       "xml": {
