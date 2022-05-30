@@ -21,7 +21,8 @@ const userParkingSchema = mongoose.Schema({
     },
     timeStamp: {
         type: 'Date',
-        required: true
+        required: true,
+        expires: 3600
     },
     isAvail: {
         type: 'boolean',
@@ -29,5 +30,6 @@ const userParkingSchema = mongoose.Schema({
         require: true
     },
 });
+
 
 module.exports = mongoose.model('UserParking', userParkingSchema)
