@@ -3,8 +3,8 @@ const { checkDatewithinMinutesOfOtherDate } = require('../../util/general.helper
 
 async function parkingController(req, res) {
 
-    const { latitude, longitude, generalLoc, timeStamp, minutes = 5 } = req.body;
-
+    const { latitude, longitude, generalLoc, timeStamp, minutes = 60 } = req.body;
+console.log('minutesss',minutes);
     if (!(latitude && longitude && generalLoc && timeStamp)) {
         return res.status(400).json({message: "Failed to connect due to empty parametres"});
     }
@@ -26,6 +26,7 @@ async function parkingController(req, res) {
         console.log(parsedDate.getTime())
         const relevantParking = nearbyParking.filter(
             parking => checkDatewithinMinutesOfOtherDate(parking.timeStamp, parsedDate, minutes))
+            console.log("relevant",relevantParking)
         if(relevantParking.length > 0) {
             return res.status(200).json({
                 "message": "Export parking successfully.",
