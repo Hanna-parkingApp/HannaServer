@@ -21,7 +21,6 @@ async function setParkingStatusController(req, res) {
         }
 
         const parkingStatus = userParking[0].isAvail;
-        console.log("parkingStatus: ", parkingStatus)
         return res.status(200).json({
             message: "Successfully update parking status",
         })

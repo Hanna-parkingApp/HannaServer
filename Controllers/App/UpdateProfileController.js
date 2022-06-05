@@ -4,7 +4,6 @@ const {getUser} = require('../../Services/user.service');
 
 async function updateProfileController(req, res) {
     try {
-        console.log(req.body);
         const { email, fullName, carNumber, carMaker, carModel, carColor } = req.body;
 
         if (!(email && fullName && carNumber && carMaker && carModel && carColor)) {

@@ -5,7 +5,7 @@ const sendEmail = require('../../util/email/sendEmail.helper');
 async function generateRecoveryCode(req, res) {
     const tempPass = crypto.randomBytes(8).toString('hex');
     const user = await userService.updateUser({ email: req.body.email }, { password: tempPass });
-    console.log(req.body)
+
     if (!user) {
         return res.status(404).json({ message: "email dosen't exist" });
     }
