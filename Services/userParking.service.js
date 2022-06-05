@@ -15,7 +15,7 @@ async function createUserParking(details) {
 
 async function getUserParking(filter = {}) {
     try {
-        const userParking = await UserParking.find(filter).exec();
+        const userParking = await UserParking.find(filter);
         return userParking;
     }
     catch(err) {

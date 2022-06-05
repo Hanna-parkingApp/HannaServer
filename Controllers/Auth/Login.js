@@ -25,7 +25,6 @@ async function loginController(req, res) {
                 }
                 
                 let car_user_id = user.cars[0];
-                console.log("car_user_id:", car_user_id);
                 const carDetail = await getCar({_id: car_user_id});
                 if (!carDetail) {
                     return res.status(500).json({message: "Can not get car detail from user"});

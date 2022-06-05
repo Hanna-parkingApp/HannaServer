@@ -28,7 +28,6 @@ async function registerController(req, res) {
             return res.status(500).json({ message: "Error while uploading new car to db"})
         }
 
-        console.log("####car: ", newCar);
         let carID = newCar._id;
 
     

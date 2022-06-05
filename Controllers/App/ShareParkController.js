@@ -6,8 +6,10 @@ const { json } = require('express/lib/response');
 
 
 async function shareParkController(req, res) {
-   try {
-console.log("$$$$req body",req.body);
+   
+    console.log("ShareParkController: Share my parking to other people ");
+   
+    try {
     const { userToken , myLoc, specificLocation, genralLocation, timeStamp } = req.body;
 
     if (!(userToken  && myLoc && specificLocation && genralLocation && timeStamp  )) {
@@ -43,10 +45,6 @@ console.log("$$$$req body",req.body);
         })
         if (!navigation)
             return res.status(500).json({ message:"could create navigation obj in DB"});
-
-        console.log("navigation_obj",navigation);
-
-        console.log("user parking id:## ",  userParking._id)
         
         const userParkingId = userParking._id;
 

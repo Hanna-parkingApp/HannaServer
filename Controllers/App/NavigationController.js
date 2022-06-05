@@ -2,14 +2,13 @@ const {updateNavigation} = require('../../Services/navigation.service')
 const {getUser} = require('../../Services/user.service')
 
 async function navigationController(req,res) {
+    console.log("NavigationConroller: return Navigation object with current other position");
     try {
         const { userId , userToken , userType ,myLoc } = req.body;
 
         if (!(userId && userToken && userType && myLoc)) {
             return res.status(400).json({ message: "All fields must be provided!"})
         }
-
-        console.log(" req.body", req.body);
 
     const curLoc_json = JSON.stringify(myLoc);
 
@@ -35,7 +34,7 @@ async function navigationController(req,res) {
             )
         }
 
-        if(userType=='FIND'){
+        if(userType=='SEARCHER'){
              updatedObj = await updateNavigation(
                 {
                 shareUserId: userId,
@@ -50,7 +49,6 @@ async function navigationController(req,res) {
         if (!updatedObj) {
             return res.status(500).json({ message: "Error updating navigation obj !"});
         }
-
         return res.status(200).json({
             "message": "updating navigation obj successfully.",
             updatedObj
