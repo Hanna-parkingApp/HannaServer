@@ -35,7 +35,7 @@ async function registerController(req, res) {
             email,
             password,
             fullName,
-            points: 0,
+            points: 10,
             cars: carID,
         });
 
