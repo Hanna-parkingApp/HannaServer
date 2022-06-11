@@ -10,6 +10,7 @@ const checkParkingStatusController = require('../Controllers/App/CheckParkingSta
 const navigationController = require('../Controllers/App/NavigationController');
 const setParkingStatusController = require('../Controllers/App/setParkingStatusController');
 const updateUserPoints = require('../Controllers/App/pointsController');
+const deleteParkingController = require('../Controllers/App/DeleteParkingController');
 const autoLoginController = require('../Controllers/Auth/AutoLogin');
 
 const auth = require('../Middleware/Auth');
@@ -30,5 +31,6 @@ router.post('/update-profile', updateProfileController);
 router.post('/update-parking-status', setParkingStatusController);
 router.post('/verifyRecoveryCode', verifyRecoveryCode);
 
+router.put('/delete-parking', deleteParkingController);
 
 module.exports = router;

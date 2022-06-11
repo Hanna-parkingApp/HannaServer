@@ -16,6 +16,8 @@ async function createUserParking(details) {
 async function getUserParking(filter = {}) {
     try {
         const userParking = await UserParking.find(filter);
+        // console.log('try to find user parking');
+        // console.log(userParking);
         return userParking;
     }
     catch(err) {
@@ -36,8 +38,9 @@ async function updateUserParking(filter, newDetails) {
 }
 
 async function deleteUserParking(filter) {
+    let deletedUserParking;
     try {
-        const deletedUserParking = await UserParking.findOneAndDelete(filter).exec();
+        deletedUserParking = await UserParking.deleteMany(filter).exec();
         if (!deletedUserParking) {
             return false;
         }
