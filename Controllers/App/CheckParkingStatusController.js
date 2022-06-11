@@ -16,6 +16,12 @@ async function checkParkingStatusController(req, res) {
             return res.status(500).json({ message:"parking wasn't found in DB"})
         }
 
+        if (userParking.length == 0) {
+            return res.status(200).json({
+                message: "No parking on that id",
+            })
+        }
+
         const parkingStatus = userParking[0].isAvail;
         return res.status(200).json({
             message: "Successfully got parking status",
