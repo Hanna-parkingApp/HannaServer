@@ -1,8 +1,10 @@
 const { getUser, updateUser } = require('../../Services/user.service');
 
 async function updateUserPoints(req, res) {
-    const token = req.headers["x-refresh-token"];
-    const pointsModifier = parseInt(req.body.pointsModifier);
+    //const token = req.headers["x-refresh-token"];
+    const { token, pointsModifier }= req.body;
+    console.log("pointController: ", token, pointsModifier);
+    //const pointsModifier = parseInt(req.body.pointsModifier);
 
     if ( !pointsModifier || ! token ) {
         return res.status(400).json({message: "all parameters required"});
@@ -14,6 +16,7 @@ async function updateUserPoints(req, res) {
     }
 
     const user = userList[0];
+    console.log('user: ', user);
     const currentPoints = user.points;
     if ( pointsModifier < 0 && currentPoints + pointsModifier < 0) {
         return res.status(400).json({message: "not enough points to update"});

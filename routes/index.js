@@ -21,7 +21,7 @@ router.post('/generateRecoveryCode', generateRecoveryCode);
 router.post('/login', loginController);
 router.post('/navigation-updater', navigationController);
 router.post('/parking-status', checkParkingStatusController);
-router.post('/updateUserPoints', updateUserPoints);
+router.post('/update-user-points', updateUserPoints);
 router.post('/register', registerController);
 router.post('/share-parks', shareParkController);
 router.post('/update-profile', updateProfileController);
