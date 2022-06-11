@@ -11,11 +11,13 @@ const navigationController = require('../Controllers/App/NavigationController');
 const setParkingStatusController = require('../Controllers/App/setParkingStatusController');
 const updateUserPoints = require('../Controllers/App/pointsController');
 const deleteParkingController = require('../Controllers/App/DeleteParkingController');
+const autoLoginController = require('../Controllers/Auth/AutoLogin');
 
 const auth = require('../Middleware/Auth');
 
 router.get('/', auth, (req, res) => {res.status(200).json('hello')})
 
+router.post('/autoLogin', auth, autoLoginController);
 router.post('/changePassword', changePassword)
 router.post('/find-parks', parkingSearcherController);
 router.post('/generateRecoveryCode', generateRecoveryCode);
