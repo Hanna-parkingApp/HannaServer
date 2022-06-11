@@ -40,7 +40,7 @@ async function updateUserParking(filter, newDetails) {
 async function deleteUserParking(filter) {
     let deletedUserParking;
     try {
-        deletedUserParking = await UserParking.deleteMany(filter).exec();
+        deletedUserParking = await UserParking.findOneAndDelete(filter).exec();
         if (!deletedUserParking) {
             return false;
         }

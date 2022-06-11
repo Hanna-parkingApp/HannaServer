@@ -10,13 +10,6 @@ async function deleteParkingController (req,res) {
         if (!userParkingId) {
             return res.status(400).json({ message:"User parkingId must be provided"})
         }
-
-        // const parkingList = await getUserParking({ userId })
-        // if (!parkingList) {
-        //     return res.status(400).json({ message:"User have no parkings"})
-        // }
-
-        // const userParkingId = parkingList[parkingList.length - 1]._Id;
         
         const isDeleted = await deleteUserParking({ _Id: userParkingId });
         if (!isDeleted) {
