@@ -17,7 +17,7 @@ const auth = require('../Middleware/Auth');
 
 router.get('/', auth, (req, res) => {res.status(200).json('hello')})
 
-router.post('/autoLogin', auth, autoLoginController);
+router.get('/autoLogin', auth, autoLoginController);
 router.post('/changePassword', changePassword)
 router.post('/find-parks', parkingSearcherController);
 router.post('/generateRecoveryCode', generateRecoveryCode);
