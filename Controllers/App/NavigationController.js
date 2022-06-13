@@ -3,6 +3,7 @@ const {getUser} = require('../../Services/user.service')
 
 async function navigationController(req,res) {
     console.log("NavigationConroller: return Navigation object with current other position");
+    console.log(req.body);
     try {
         const { userId , userToken , userType ,myLoc } = req.body;
 
@@ -24,9 +25,10 @@ async function navigationController(req,res) {
 
     
         if(userType=='SHARE'){
+
              updatedObj = await updateNavigation(
                 {
-                shareUserId: userId,
+                shareUserId: userID,
                 },
                 {
                     shareCurLoc: curLoc_json 
@@ -45,6 +47,8 @@ async function navigationController(req,res) {
                 }
             )
         }
+
+        console.log("updatedObj: ", updatedObj);
 
         if (!updatedObj) {
             return res.status(500).json({ message: "Error updating navigation obj !"});

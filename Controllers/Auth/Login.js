@@ -19,6 +19,7 @@ async function loginController(req, res) {
             if (password == user.password) {
                 let userId = user.id;
                 const userRefreshToken = await RefreshToken.findOne({ user: userId, revoked: undefined }).exec();
+                console.log(userRefreshToken)
                 const tokens = await refreshToken.refreshToken(userRefreshToken.token, user)
                 if (!tokens) {
                     return res.status(401).json({message: "Invalid Token bla"});

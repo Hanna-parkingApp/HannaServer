@@ -51,11 +51,14 @@ async function registerController(req, res) {
         tokens.refreshToken = rToken.token;
 
         newUser.token = tokens.refreshToken;
-        newUser.save();
+        await newUser.save();
+
     
         return res.status(200).json({
             "message": "User created successfully.",
-            tokens
+            tokens,
+            newUser,
+            newCar
         });
     
     }
