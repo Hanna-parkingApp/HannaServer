@@ -6,21 +6,26 @@ const User = require('../db/schemas/User');
 const RefreshToken = require('../db/schemas/RefreshToken');
 
 async function refreshToken(token, user) {
-    const refreshToken = await getRefreshToken(token);
-    if (!refreshToken) {
-        return false;
-    }
-
+    let refreshToken;
     if(user.token != token) {
+        await revokeToken(token);
+        refreshToken = await getRefreshToken(user.token);
         return false;
     }
+    else {
+        refreshToken = await getRefreshToken(token);
+    }
 
-    console.log(user)
     const newRefreshToken = await createRefreshToken(user._id);
 
-    refreshToken.revoked = Date.now();
-    refreshToken.replacedByToken = newRefreshToken.token;
-    await refreshToken.save();
+    if (refreshToken) {
+        refreshToken.revoked = Date.now();
+        refreshToken.replacedByToken = newRefreshToken.token;
+        await refreshToken.save();
+    }
+    console.log(user)
+
+
     user.token = newRefreshToken.token;
     await user.save();
     
